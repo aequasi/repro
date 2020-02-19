@@ -4,7 +4,7 @@
   "version": "0.1.1",
   "author": "Aaron Scherer @aequasi",
   "bin": {
-    "repro": "./bin/run"
+    "reprod": "./bin/run"
   },
   "bugs": "https://github.com/aequasi/repro/issues",
   "dependencies": {
@@ -17,6 +17,8 @@
     "fs-extra": "^8.1.0",
     "listr": "^0.14.3",
     "node-fetch": "^2.6.0",
+    "prompt-confirm": "^2.0.4",
+    "remote-origin-url": "^2.0.0",
     "tslib": "^1"
   },
   "devDependencies": {
@@ -29,6 +31,7 @@
     "@types/mocha": "^5",
     "@types/node": "^10",
     "@types/node-fetch": "^2.5.4",
+    "@types/remote-origin-url": "^2.0.0",
     "chai": "^4",
     "eslint": "^5.13",
     "eslint-config-oclif": "^3.1",
@@ -45,16 +48,16 @@
     "/bin",
     "/lib"
   ],
-  "homepage": "https://github.com/aequasi/repro",
+  "homepage": "https://github.com/aequasi/reprod",
   "keywords": [
     "oclif"
   ],
   "license": "MIT",
   "main": "lib/index.js",
   "oclif": {
-    "bin": "repro"
+    "bin": "reprod"
   },
-  "repository": "aequasi/repro",
+  "repository": "aequasi/reprod",
   "scripts": {
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev readme",

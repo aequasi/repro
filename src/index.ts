@@ -5,6 +5,8 @@ import getConfig from './util/get-config'
 import execa from 'execa'
 import {downloadUrl} from './util/download-url'
 import Listr from 'listr'
+import Confirm from 'prompt-confirm';
+import origin from 'remote-origin-url'
 
 interface Flags {
   ignoreLocal: boolean;
@@ -32,6 +34,7 @@ cd swr-repro-<tab>
   static flags = {
     version: flags.version({char: 'v'}),
     help: flags.help({char: 'h'}),
+    nonInteractive: flags.boolean({char: 'n', description: 'If set, wont ask for a confirmation before creating.'}),
     ignoreLocal: flags.boolean({char: 'i', description: 'If set, will ignore any local configs in ~/.config/repro/'}),
     location: flags.string({
       char: 'l',
@@ -39,14 +42,40 @@ cd swr-repro-<tab>
     }),
   }
 
-  static args = [{name: 'repo', description: 'Repository to create a reproduction for', required: true}]
+  static args = [{name: 'repo', description: 'Repository to create a reproduction for'}]
 
   async run() {
-    this.log('\n')
+    this.log('');
 
     const {args, flags} = this.parse<Flags, Args>(Repro)
+
+    if (!args.repo) {
+      let url: string | undefined;
+      try {
+        url = await origin();
+        if (!url) {
+          throw new Error();
+        }
+      } catch {
+        return this.error('No repository passed, and couldn\'t figure out the current directory\'s origin remote url.')
+      }
+
+      args.repo = url
+                    .replace('git@github.com:', '')
+                    .replace('https://github.com/', '')
+                    .replace(/\.git$/, '') + '@latest';
+    }
+
     const repo          = args.repo.split('@')
     const version       = repo[1] || 'latest'
+
+    const prompt = new Confirm(`Do you want to create a reproduction for ${repo[0]}@${version}`);
+    if (!(await prompt.run())) {
+      return this.log('\nExiting.')
+    }
+    this.log();
+
+
     const dirName       = repo[0].split('/')
     if (dirName[1] === undefined) {
       return this.error('Invalid repo passed. Must be in the <OWNER>/<REPO> format.')
