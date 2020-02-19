@@ -72,4 +72,4 @@ Library.doSomethingAwesomeThatBreaks();
 
 You can test this by running `repro` in the library directory.
 
-Check out (this library's `.repro.js`)[https://github.com/aequasi/repro/blob/master/.repro.js] for an example.
+Check out [this library's `.repro.js`](https://github.com/aequasi/repro/blob/master/.repro.js) for an example.
