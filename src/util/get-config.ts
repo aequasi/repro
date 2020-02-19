@@ -1,7 +1,7 @@
 import EnvPath from 'env-paths'
 import fs from 'fs-extra'
 import path from 'path'
-import downloadUrlToFile, {downloadUrl} from './download-url'
+import {downloadUrl} from './download-url'
 
 const packageJson = require('../../package.json')
 const configPath  = EnvPath(packageJson.name).config // eslint-disable-line new-cap
@@ -19,7 +19,7 @@ interface Config {
   }[];
 }
 
-const fileName = '.reprod.js';
+const fileName = '.reprod.js'
 
 type ConfigFn = (config: {version: string; repo: string}) => Config;
 
@@ -38,10 +38,10 @@ export async function getLocalConfig(repo: string, version: string): Promise<Con
 export async function getRemoteConfig(repo: string, version: string): Promise<void> {
   const vrs = version === 'latest' ? 'master' : version
 
-  await fs.mkdirp(path.join(configPath, repo, version));
-  const content = await downloadUrl(`https://raw.githubusercontent.com/${repo}/${vrs}/${fileName}`);
+  await fs.mkdirp(path.join(configPath, repo, version))
+  const content = await downloadUrl(`https://raw.githubusercontent.com/${repo}/${vrs}/${fileName}`)
   if (!content.startsWith('404: Not Found')) {
-    await fs.writeFile(path.join(configPath, repo, version, fileName), content);
+    await fs.writeFile(path.join(configPath, repo, version, fileName), content)
   }
 }
 
@@ -54,6 +54,7 @@ export default async function getConfig(repo: string, version = 'latest'): Promi
 
   if (!config) {
     const pth = path.join(configPath, repo)
+    // eslint-disable-next-line no-console
     console.log(`Create your own config by creating a ${fileName} file in: ${path.join(pth, version)}/\n`)
 
     throw new Error('Config not found for ' + repo + '@' + version)
