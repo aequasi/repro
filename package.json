@@ -1,7 +1,7 @@
 {
   "name": "reprod",
   "description": "Quickly create reproduction examples of third party code",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Aaron Scherer @aequasi",
   "bin": {
     "repro": "./bin/run"
