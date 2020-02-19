@@ -11,7 +11,7 @@ Quickly create reproduction examples of third party code
 # Usage
 ```sh-session
 $ npm i -g reprod
-$ reprod zeit/swr@0.1.16
+$ reprod -n zeit/swr@0.1.16
 
   ✔ Preparing Dependencies
   ✔ Creating Files
