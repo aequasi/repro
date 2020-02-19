@@ -8,27 +8,16 @@ Quickly create reproduction examples of third party code
 [![Downloads/week](https://img.shields.io/npm/dw/repro.svg)](https://npmjs.org/package/repro)
 [![License](https://img.shields.io/npm/l/repro.svg)](https://github.com/aequasi/repro/blob/master/package.json)
 
-
-
-<!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
 # Usage
-<!-- usage -->
 ```sh-session
-$ npm install -g reprod
-$ repro COMMAND
-running command...
-$ repro (-v|--version|version)
-reprod/0.1.0 darwin-x64 node-v12.13.1
-$ repro --help [COMMAND]
-USAGE
-  $ repro COMMAND
+$ npm i -g repro
+$ repro zeit/swr@0.1.16
+
+  ✔ Preparing Dependencies
+  ✔ Creating Files
+
+Finished creating reproduction!
+
+$ cd swr-repro-<tab>
 ...
 ```
-<!-- usagestop -->
-# Commands
-<!-- commands -->
-
-<!-- commandsstop -->
