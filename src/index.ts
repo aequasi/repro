@@ -11,6 +11,7 @@ import origin from 'remote-origin-url'
 interface Flags {
   ignoreLocal: boolean;
   location?: string;
+  nonInteractive?: boolean;
 }
 
 interface Args {
@@ -69,9 +70,11 @@ cd swr-repro-<tab>
     const repo          = args.repo.split('@')
     const version       = repo[1] || 'latest'
 
-    const prompt = new Confirm(`Do you want to create a reproduction for ${repo[0]}@${version}`)
-    if (!(await prompt.run())) {
-      return this.log('\nExiting.')
+    if (flags.nonInteractive) {
+      const prompt = new Confirm(`Do you want to create a reproduction for ${repo[0]}@${version}`)
+      if (!(await prompt.run())) {
+        return this.log('\nExiting.')
+      }
     }
     this.log()
 
