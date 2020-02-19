@@ -8,7 +8,6 @@ const packageJson = require('../../package.json');
 const configPath  = EnvPath(packageJson.name).config;
 
 const config = new Conf();
-console.log(config.path);
 
 interface Config {
   package: {

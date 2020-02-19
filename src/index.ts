@@ -17,7 +17,17 @@ interface Args {
 
 
 class Repro extends Command {
-  static description = 'describe the command here'
+  static description = 'Easily create a reproduction of a bug'
+  static usage = `
+$ repro zeit/swr@0.1.16
+
+  ✔ Preparing Dependencies
+  ✔ Creating Files
+
+Finished creating reproduction!
+
+cd swr-repro-<tab>
+`
 
   static flags = {
     version:     flags.version({char: 'v'}),
@@ -32,6 +42,8 @@ class Repro extends Command {
   static args = [{name: 'repo', description: 'Repository to create a reproduction for', required: true}]
 
   async run() {
+    this.log('\n');
+
     const {args, flags} = this.parse<Flags, Args>(Repro);
     const repo          = args.repo.split('@');
     const version       = repo[1] || 'latest';
@@ -40,7 +52,7 @@ class Repro extends Command {
       return this.error('Invalid repo passed. Must be in the <OWNER>/<REPO> format.')
     }
 
-    const dir = path.join(process.cwd(), flags.location || dirName[1]);
+    const dir = path.join(process.cwd(), flags.location || dirName[1] + '-repro-' + Date.now());
     if (fs.existsSync(dir)) {
       return this.error(
         'Directory already exists where we are trying to create the reproduction: ' +
@@ -109,7 +121,7 @@ class Repro extends Command {
 
       await tasks.run();
 
-      this.log('Finished creating reproduction!');
+      this.log('\nFinished creating reproduction!');
     } catch (e) {
       await fs.remove(dir);
       this.log(e);
