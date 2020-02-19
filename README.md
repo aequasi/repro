@@ -17,11 +17,11 @@ Quickly create reproduction examples of third party code
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g repro
+$ npm install -g reprod
 $ repro COMMAND
 running command...
 $ repro (-v|--version|version)
-repro/0.0.0 darwin-x64 node-v12.13.1
+reprod/0.1.0 darwin-x64 node-v12.13.1
 $ repro --help [COMMAND]
 USAGE
   $ repro COMMAND
