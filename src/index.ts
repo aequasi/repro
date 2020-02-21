@@ -38,7 +38,7 @@ cd swr-repro-<tab>
         nonInteractive: flags.boolean({char: 'n', description: 'If set, wont ask for a confirmation before creating.'}),
         ignoreLocal:    flags.boolean({
             char:        'i',
-            description: 'If set, will ignore any local configs in ~/.config/repro/'
+            description: 'If set, will ignore any local configs in ~/.config/repro/',
         }),
         location:       flags.string({
             char:        'l',
@@ -66,9 +66,9 @@ cd swr-repro-<tab>
             }
 
             args.repo = url
-                            .replace('git@github.com:', '')
-                            .replace('https://github.com/', '')
-                            .replace(/\.git$/, '') + '@latest'
+                .replace('git@github.com:', '')
+                .replace('https://github.com/', '')
+                .replace(/\.git$/, '') + '@latest'
         }
 
         const repo    = args.repo.split('@')
@@ -141,11 +141,7 @@ cd swr-repro-<tab>
                                 if (!content) {
                                     if (file.localUrl) {
                                         const vrs = version === 'latest' ? 'master' : version
-                                        file.url
-                                                  = `https://raw.githubusercontent.com/${repo}/${vrs}/${file.localUrl.replace(
-                                            /^\.\//,
-                                            ''
-                                        )}`
+                                        file.url = `https://raw.githubusercontent.com/${repo}/${vrs}/${file.localUrl.replace(/^\.\//, '')}`
                                     }
 
                                     content = await downloadUrl(file.url!)
